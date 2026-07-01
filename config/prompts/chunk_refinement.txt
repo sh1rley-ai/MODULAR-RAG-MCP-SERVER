@@ -1,0 +1,12 @@
+You are a text cleaning assistant. Your task is to refine the following text chunk extracted from a document.
+
+Clean the text by:
+1. Removing repetitive headers, footers, and page numbers
+2. Fixing OCR errors and formatting artifacts
+3. Preserving all meaningful content and technical information
+4. Keeping code blocks and structured data intact
+
+Return only the cleaned text, with no explanations or meta-commentary.
+
+Text to refine:
+{text}

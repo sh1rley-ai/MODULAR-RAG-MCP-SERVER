@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "modular-rag-mcp-server"
+version = "0.1.0"
+description = "Modular RAG MCP Server"
+requires-python = ">=3.11"
+
+# src-layout：告诉 setuptools 到 src/ 下去发现包（mcp_server/core/ingestion/libs/observability），
+# 而不是仓库根目录。配合 `pip install -e .` 使这些包可全局导入。
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = [
+    "unit: fast unit tests (no external deps)",
+    "integration: integration tests (may use real backends)",
+    "e2e: end-to-end tests",
+]
+addopts = "-v --tb=short"
+
+[tool.coverage.run]
+source = ["src"]

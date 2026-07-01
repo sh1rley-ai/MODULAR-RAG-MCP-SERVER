@@ -1,0 +1,56 @@
+llm:
+  provider: "openai"        # openai | azure | ollama | deepseek
+  model: "gpt-4o-mini"
+  api_key: ""               # or set OPENAI_API_KEY env var
+  temperature: 0.0
+  max_tokens: 2048
+
+vision_llm:
+  provider: "azure"         # azure
+  deployment_name: ""
+  azure_endpoint: ""
+  api_version: "2024-02-15-preview"
+  api_key: ""
+  max_image_size: 2048
+
+embedding:
+  provider: "openai"        # openai | azure | ollama
+  model: "text-embedding-3-small"
+  api_key: ""               # or set OPENAI_API_KEY env var
+
+vector_store:
+  provider: "chroma"        # chroma
+  persist_directory: "data/db/chroma"
+  collection_name: "default"
+
+splitter:
+  provider: "recursive"     # recursive | semantic | fixed
+  chunk_size: 1000
+  chunk_overlap: 200
+
+retrieval:
+  dense_top_k: 20
+  sparse_top_k: 20
+  final_top_k: 5
+  rrf_k: 60
+
+rerank:
+  backend: "none"           # none | cross_encoder | llm
+  top_k: 5
+
+ingestion:
+  batch_size: 16
+  chunk_refiner:
+    use_llm: false
+  metadata_enricher:
+    use_llm: false
+  image_captioner:
+    enabled: false
+
+evaluation:
+  provider: "custom"        # custom | ragas | deepeval
+
+observability:
+  log_level: "INFO"
+  traces_file: "logs/traces.jsonl"
+  app_log_file: "logs/app.log"
