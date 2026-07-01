@@ -1,3 +1,7 @@
+# Modular RAG MCP Server - Configuration
+# This is the main configuration file for the MCP Server.
+# Edit this file to configure LLM, Embedding, VectorStore, and other services.
+
 llm:
   provider: "openai"        # openai | azure | ollama | deepseek
   model: "gpt-4o-mini"
