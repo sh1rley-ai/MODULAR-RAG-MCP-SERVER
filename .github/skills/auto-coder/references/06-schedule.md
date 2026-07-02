@@ -43,7 +43,7 @@
 |---------|---------|------|---------|------|
 | A1 | 初始化目录树与最小可运行入口 | [x] | 2026-07-01 | 目录结构、配置文件、main.py、__init__.py 骨架已创建 |
 | A2 | 引入 pytest 并建立测试目录约定 | [x] | 2026-07-02 | pytest 配置 + test_smoke_imports.py（5 passed）+ sample_documents fixture |
-| A3 | 配置加载与校验（Settings） | [ ] |  |  |
+| A3 | 配置加载与校验（Settings） | [x] | 2026-07-02 | Settings dataclass + load_settings + validate_settings + 13个单元测试 |
 
 #### 阶段 B：Libs 可插拔层
 

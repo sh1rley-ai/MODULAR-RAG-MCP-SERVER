@@ -5,56 +5,46 @@
 llm:
   provider: "openai"        # openai | azure | ollama | deepseek
   model: "gpt-4o-mini"
-  api_key: ""               # or set OPENAI_API_KEY env var
   temperature: 0.0
   max_tokens: 2048
-
-vision_llm:
-  provider: "azure"         # azure
-  deployment_name: ""
-  azure_endpoint: ""
-  api_version: "2024-02-15-preview"
-  api_key: ""
-  max_image_size: 2048
 
 embedding:
   provider: "openai"        # openai | azure | ollama
   model: "text-embedding-3-small"
-  api_key: ""               # or set OPENAI_API_KEY env var
+  dimensions: 1536           # text-embedding-3-small=1536, ada-002=1536, large=3072
 
 vector_store:
   provider: "chroma"        # chroma
   persist_directory: "data/db/chroma"
   collection_name: "default"
 
-splitter:
-  provider: "recursive"     # recursive | semantic | fixed
-  chunk_size: 1000
-  chunk_overlap: 200
-
 retrieval:
   dense_top_k: 20
   sparse_top_k: 20
-  final_top_k: 5
+  fusion_top_k: 10           # top-k after RRF fusion, before rerank
   rrf_k: 60
 
 rerank:
-  backend: "none"           # none | cross_encoder | llm
+  enabled: false
+  provider: "none"          # none | cross_encoder | llm
+  model: "none"             # model name for cross_encoder or llm reranker
   top_k: 5
 
-ingestion:
-  batch_size: 16
-  chunk_refiner:
-    use_llm: false
-  metadata_enricher:
-    use_llm: false
-  image_captioner:
-    enabled: false
-
 evaluation:
+  enabled: false
   provider: "custom"        # custom | ragas | deepeval
+  metrics:
+    - "hit_rate"
+    - "mrr"
 
 observability:
   log_level: "INFO"
-  traces_file: "logs/traces.jsonl"
-  app_log_file: "logs/app.log"
+  trace_enabled: true
+  trace_file: "logs/traces.jsonl"
+  structured_logging: false
+
+ingestion:
+  chunk_size: 1000
+  chunk_overlap: 200
+  splitter: "recursive"     # recursive | semantic | fixed
+  batch_size: 16
