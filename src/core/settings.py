@@ -63,12 +63,28 @@ def _require_list(data: Dict[str, Any], key: str, path: str) -> List[Any]:
     return value
 
 
+def _optional_str(data: Dict[str, Any], key: str, path: str) -> Optional[str]:
+    value = data.get(key)
+    if value is None:
+        return None
+    if not isinstance(value, str) or not value.strip():
+        raise SettingsError(f"Expected non-empty string for field: {path}.{key}")
+    return value
+
+
 @dataclass(frozen=True)
 class LLMSettings:
     provider: str
     model: str
     temperature: float
     max_tokens: int
+    # Optional connection settings; providers fall back to environment
+    # variables when unset (e.g. OPENAI_API_KEY, AZURE_OPENAI_ENDPOINT).
+    api_key: Optional[str] = None
+    base_url: Optional[str] = None
+    azure_endpoint: Optional[str] = None
+    api_version: Optional[str] = None
+    deployment_name: Optional[str] = None
 
 
 @dataclass(frozen=True)
@@ -164,6 +180,11 @@ class Settings:
                 model=_require_str(llm, "model", "llm"),
                 temperature=_require_number(llm, "temperature", "llm"),
                 max_tokens=_require_int(llm, "max_tokens", "llm"),
+                api_key=_optional_str(llm, "api_key", "llm"),
+                base_url=_optional_str(llm, "base_url", "llm"),
+                azure_endpoint=_optional_str(llm, "azure_endpoint", "llm"),
+                api_version=_optional_str(llm, "api_version", "llm"),
+                deployment_name=_optional_str(llm, "deployment_name", "llm"),
             ),
             embedding=EmbeddingSettings(
                 provider=_require_str(embedding, "provider", "embedding"),
