@@ -72,6 +72,24 @@ def _optional_str(data: Dict[str, Any], key: str, path: str) -> Optional[str]:
     return value
 
 
+def _optional_int(data: Dict[str, Any], key: str, path: str) -> Optional[int]:
+    value = data.get(key)
+    if value is None:
+        return None
+    if not isinstance(value, int) or isinstance(value, bool):
+        raise SettingsError(f"Expected integer for field: {path}.{key}")
+    return value
+
+
+def _optional_bool(data: Dict[str, Any], key: str, path: str, default: bool = False) -> bool:
+    value = data.get(key)
+    if value is None:
+        return default
+    if not isinstance(value, bool):
+        raise SettingsError(f"Expected boolean for field: {path}.{key}")
+    return value
+
+
 @dataclass(frozen=True)
 class LLMSettings:
     provider: str
@@ -92,6 +110,17 @@ class EmbeddingSettings:
     provider: str
     model: str
     dimensions: int
+    # Optional connection settings; providers fall back to environment
+    # variables when unset (e.g. OPENAI_API_KEY, AZURE_OPENAI_ENDPOINT).
+    api_key: Optional[str] = None
+    base_url: Optional[str] = None
+    azure_endpoint: Optional[str] = None
+    api_version: Optional[str] = None
+    deployment_name: Optional[str] = None
+    # Oversize-input policy: when max_input_chars is set, longer texts either
+    # raise (default) or get truncated (truncate_oversize: true).
+    max_input_chars: Optional[int] = None
+    truncate_oversize: bool = False
 
 
 @dataclass(frozen=True)
@@ -190,6 +219,13 @@ class Settings:
                 provider=_require_str(embedding, "provider", "embedding"),
                 model=_require_str(embedding, "model", "embedding"),
                 dimensions=_require_int(embedding, "dimensions", "embedding"),
+                api_key=_optional_str(embedding, "api_key", "embedding"),
+                base_url=_optional_str(embedding, "base_url", "embedding"),
+                azure_endpoint=_optional_str(embedding, "azure_endpoint", "embedding"),
+                api_version=_optional_str(embedding, "api_version", "embedding"),
+                deployment_name=_optional_str(embedding, "deployment_name", "embedding"),
+                max_input_chars=_optional_int(embedding, "max_input_chars", "embedding"),
+                truncate_oversize=_optional_bool(embedding, "truncate_oversize", "embedding"),
             ),
             vector_store=VectorStoreSettings(
                 provider=_require_str(vector_store, "provider", "vector_store"),

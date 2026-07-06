@@ -20,6 +20,16 @@ embedding:
   provider: "openai"        # openai | azure | ollama
   model: "text-embedding-3-small"
   dimensions: 1536           # text-embedding-3-small=1536, ada-002=1536, large=3072
+  # Optional connection settings (same rules as llm section; ${ENV_VAR} supported).
+  # api_key: "${OPENAI_API_KEY}"
+  # base_url: "https://api.openai.com/v1"       # custom OpenAI-compatible endpoint
+  # azure_endpoint: "${AZURE_OPENAI_ENDPOINT}"  # azure only
+  # api_version: "2024-06-01"                   # azure only
+  # deployment_name: "text-embedding-ada-002"   # azure only
+  # Oversize-input policy: unset = no limit; with a limit, longer texts raise
+  # unless truncate_oversize is true.
+  # max_input_chars: 8000
+  # truncate_oversize: false
 
 vector_store:
   provider: "chroma"        # chroma

@@ -57,7 +57,7 @@
 | B6 | Evaluator 抽象接口与工厂 | [x] | 2026-07-06 | BaseEvaluator + CustomEvaluator（hit_rate/mrr）+ EvaluatorFactory（注册表路由）+ 42个单元测试 |
 | B7.1 | OpenAI-Compatible LLM 实现 | [x] | 2026-07-06 | OpenAICompatibleLLM 基类（openai SDK + 可注入 client）+ OpenAILLM/AzureLLM/DeepSeekLLM + LLMSettings 可选连接字段（api_key/base_url/azure_endpoint 等，支持 ${ENV_VAR}）+ 32个单元测试 |
 | B7.2 | Ollama LLM 实现 | [x] | 2026-07-06 | OllamaLLM（httpx 原生 /api/chat，无需 API key，base_url: settings→OLLAMA_BASE_URL→localhost:11434，连接失败/超时/HTTP错误可读报错）+ 17个单元测试（MockTransport） |
-| B7.3 | OpenAI & Azure Embedding 实现 | [ ] | | |
+| B7.3 | OpenAI & Azure Embedding 实现 | [x] | 2026-07-06 | OpenAICompatibleEmbedding 基类 + OpenAIEmbedding/AzureEmbedding（复用核心逻辑，仅覆写 client 构造与 deployment 寻址）+ EmbeddingSettings 可选连接字段与超长输入策略（max_input_chars/truncate_oversize）+ 维度校验 + 28个单元测试 |
 | B7.4 | Ollama Embedding 实现 | [ ] | | |
 | B7.5 | Recursive Splitter 默认实现 | [ ] | | |
 | B7.6 | ChromaStore 默认实现 | [ ] | | |
@@ -157,7 +157,7 @@
 | 阶段 | 总任务数 | 已完成 | 进度 |
 |------|---------|--------|------|
 | 阶段 A | 3 | 3 | 100% |
-| 阶段 B | 16 | 8 | 50% |
+| 阶段 B | 16 | 9 | 56% |
 | 阶段 C | 15 | 0 | 0% |
 | 阶段 D | 7 | 0 | 0% |
 | 阶段 E | 6 | 0 | 0% |
@@ -165,7 +165,7 @@
 | 阶段 G | 6 | 0 | 0% |
 | 阶段 H | 5 | 0 | 0% |
 | 阶段 I | 5 | 0 | 0% |
-| **总计** | **68** | **11** | **16%** |
+| **总计** | **68** | **12** | **18%** |
 
 
 ---
