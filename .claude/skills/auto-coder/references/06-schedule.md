@@ -59,7 +59,7 @@
 | B7.2 | Ollama LLM 实现 | [x] | 2026-07-06 | OllamaLLM（httpx 原生 /api/chat，无需 API key，base_url: settings→OLLAMA_BASE_URL→localhost:11434，连接失败/超时/HTTP错误可读报错）+ 17个单元测试（MockTransport） |
 | B7.3 | OpenAI & Azure Embedding 实现 | [x] | 2026-07-06 | OpenAICompatibleEmbedding 基类 + OpenAIEmbedding/AzureEmbedding（复用核心逻辑，仅覆写 client 构造与 deployment 寻址）+ EmbeddingSettings 可选连接字段与超长输入策略（max_input_chars/truncate_oversize）+ 维度校验 + 28个单元测试 |
 | B7.4 | Ollama Embedding 实现 | [x] | 2026-07-07 | OllamaEmbedding（httpx /api/embed 批量接口，无需 API key，base_url 三级解析）+ 超长输入策略 + 连接/超时/HTTP错误可读报错 + 23个单元测试（MockTransport） |
-| B7.5 | Recursive Splitter 默认实现 | [ ] | | |
+| B7.5 | Recursive Splitter 默认实现 | [x] | 2026-07-07 | RecursiveSplitter（LangChain RecursiveCharacterTextSplitter + Markdown分隔符优先策略）+ 21个单元测试 |
 | B7.6 | ChromaStore 默认实现 | [ ] | | |
 | B7.7 | LLM Reranker 实现 | [ ] | | |
 | B7.8 | Cross-Encoder Reranker 实现 | [ ] | | |
@@ -157,7 +157,7 @@
 | 阶段 | 总任务数 | 已完成 | 进度 |
 |------|---------|--------|------|
 | 阶段 A | 3 | 3 | 100% |
-| 阶段 B | 16 | 10 | 63% |
+| 阶段 B | 16 | 11 | 69% |
 | 阶段 C | 15 | 0 | 0% |
 | 阶段 D | 7 | 0 | 0% |
 | 阶段 E | 6 | 0 | 0% |
@@ -165,7 +165,7 @@
 | 阶段 G | 6 | 0 | 0% |
 | 阶段 H | 5 | 0 | 0% |
 | 阶段 I | 5 | 0 | 0% |
-| **总计** | **68** | **13** | **19%** |
+| **总计** | **68** | **14** | **21%** |
 
 
 ---
