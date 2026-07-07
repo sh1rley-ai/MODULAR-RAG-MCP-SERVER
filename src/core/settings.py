@@ -170,6 +170,18 @@ class IngestionSettings:
 
 
 @dataclass(frozen=True)
+class VisionLLMSettings:
+    provider: str
+    model: str
+    max_image_size: int = 2048
+    # Optional connection settings (Azure-specific, used by B9 AzureVisionLLM)
+    api_key: Optional[str] = None
+    azure_endpoint: Optional[str] = None
+    api_version: Optional[str] = None
+    deployment_name: Optional[str] = None
+
+
+@dataclass(frozen=True)
 class Settings:
     llm: LLMSettings
     embedding: EmbeddingSettings
@@ -179,6 +191,7 @@ class Settings:
     evaluation: EvaluationSettings
     observability: ObservabilitySettings
     ingestion: Optional[IngestionSettings] = None
+    vision_llm: Optional[VisionLLMSettings] = None
 
     @classmethod
     def from_dict(cls, data: Dict[str, Any]) -> "Settings":
@@ -201,6 +214,19 @@ class Settings:
                 chunk_overlap=_require_int(ingestion, "chunk_overlap", "ingestion"),
                 splitter=_require_str(ingestion, "splitter", "ingestion"),
                 batch_size=_require_int(ingestion, "batch_size", "ingestion"),
+            )
+
+        vision_llm_settings = None
+        if "vision_llm" in data:
+            vision_llm = _require_mapping(data, "vision_llm", "settings")
+            vision_llm_settings = VisionLLMSettings(
+                provider=_require_str(vision_llm, "provider", "vision_llm"),
+                model=_require_str(vision_llm, "model", "vision_llm"),
+                max_image_size=_optional_int(vision_llm, "max_image_size", "vision_llm") or 2048,
+                api_key=_optional_str(vision_llm, "api_key", "vision_llm"),
+                azure_endpoint=_optional_str(vision_llm, "azure_endpoint", "vision_llm"),
+                api_version=_optional_str(vision_llm, "api_version", "vision_llm"),
+                deployment_name=_optional_str(vision_llm, "deployment_name", "vision_llm"),
             )
 
         settings = cls(
@@ -256,6 +282,7 @@ class Settings:
                 structured_logging=_require_bool(observability, "structured_logging", "observability"),
             ),
             ingestion=ingestion_settings,
+            vision_llm=vision_llm_settings,
         )
 
         return settings

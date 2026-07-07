@@ -63,7 +63,7 @@
 | B7.6 | ChromaStore 默认实现 | [x] | 2026-07-07 | ChromaStore（ChromaDB PersistentClient/EphemeralClient 双模式 + 幂等 upsert + metadata filter + score=1/(1+distance)）+ 24个集成测试（roundtrip/topk/filter/persist） |
 | B7.7 | LLM Reranker 实现 | [x] | 2026-07-07 | LLMReranker（读取 rerank.txt 构造 prompt + 可注入 LLM/prompt_text + JSON schema 校验 + RerankerError 可读报错）+ 29个单元测试 |
 | B7.8 | Cross-Encoder Reranker 实现 | [x] | 2026-07-07 | CrossEncoderReranker（sentence-transformers 懒加载 + 可注入 scorer + 失败回退信号）+ 34个单元测试 |
-| B8 | Vision LLM 抽象接口与工厂集成 | [ ] | | |
+| B8 | Vision LLM 抽象接口与工厂集成 | [x] | 2026-07-07 | BaseVisionLLM（chat_with_image + preprocess_image 扩展点 + 输入校验）+ VisionLLMSettings + LLMFactory.create_vision_llm（独立 vision registry）+ 36个单元测试 |
 | B9 | Azure Vision LLM 实现 | [ ] | | |
 
 #### 阶段 C：Ingestion Pipeline MVP
