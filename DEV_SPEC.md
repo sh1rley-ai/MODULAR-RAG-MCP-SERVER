@@ -1971,7 +1971,7 @@ dashboard:
 | B7.4 | Ollama Embedding 实现 | [x] | 2026-07-07 | OllamaEmbedding（httpx /api/embed 批量接口，无需 API key，base_url 三级解析）+ 超长输入策略 + 连接/超时/HTTP错误可读报错 + 23个单元测试（MockTransport） |
 | B7.5 | Recursive Splitter 默认实现 | [x] | 2026-07-07 | RecursiveSplitter（LangChain RecursiveCharacterTextSplitter + Markdown分隔符优先策略）+ 21个单元测试 |
 | B7.6 | ChromaStore 默认实现 | [x] | 2026-07-07 | ChromaStore（ChromaDB PersistentClient/EphemeralClient 双模式 + 幂等 upsert + metadata filter + score=1/(1+distance)）+ 24个集成测试（roundtrip/topk/filter/persist） |
-| B7.7 | LLM Reranker 实现 | [ ] | | |
+| B7.7 | LLM Reranker 实现 | [x] | 2026-07-07 | LLMReranker（读取 rerank.txt 构造 prompt + 可注入 LLM/prompt_text + JSON schema 校验 + RerankerError 可读报错）+ 29个单元测试 |
 | B7.8 | Cross-Encoder Reranker 实现 | [ ] | | |
 | B8 | Vision LLM 抽象接口与工厂集成 | [ ] | | |
 | B9 | Azure Vision LLM 实现 | [ ] | | |
@@ -2067,7 +2067,7 @@ dashboard:
 | 阶段 | 总任务数 | 已完成 | 进度 |
 |------|---------|--------|------|
 | 阶段 A | 3 | 3 | 100% |
-| 阶段 B | 16 | 12 | 75% |
+| 阶段 B | 16 | 13 | 81% |
 | 阶段 C | 15 | 0 | 0% |
 | 阶段 D | 7 | 0 | 0% |
 | 阶段 E | 6 | 0 | 0% |
@@ -2075,7 +2075,7 @@ dashboard:
 | 阶段 G | 6 | 0 | 0% |
 | 阶段 H | 5 | 0 | 0% |
 | 阶段 I | 5 | 0 | 0% |
-| **总计** | **68** | **15** | **22%** |
+| **总计** | **68** | **16** | **24%** |
 
 
 ---
